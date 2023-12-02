@@ -25,6 +25,10 @@ public static class ApplicationServicesExtensions
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+        ///<summary>
+        /// To return a user specific error response for model validations
+        ///</summary>
         services.Configure<ApiBehaviorOptions>(options =>
         {
             options.InvalidModelStateResponseFactory = actionContext =>
