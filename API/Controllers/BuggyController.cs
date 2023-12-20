@@ -11,6 +11,7 @@ public class BuggyController:BaseApiController
     {
         return NotFound(new ApiErrorResponse(StatusCodes.Status404NotFound));
     }
+
     [HttpGet("servererror")]
     public ActionResult GetServerError()
     {
@@ -24,6 +25,7 @@ public class BuggyController:BaseApiController
     {
         return BadRequest(new ApiErrorResponse(StatusCodes.Status400BadRequest));
     }
+    
     [HttpGet("badrequest/{id}")]
     public ActionResult GetBadRequest(int id)
     {
