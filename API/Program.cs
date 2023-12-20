@@ -1,3 +1,4 @@
+using System.Reflection;
 using API.Extensions;
 using API.Middlewares;
 using Infrastructure.Data;
@@ -16,7 +17,13 @@ internal class Program
         builder.Services.AddApplicationServices(builder.Configuration);
 
         builder.Services.AddSwaggerService();
-
+        builder.Services.AddEndpointsApiExplorer();
+        // builder.Services.AddSwaggerGen(options =>
+        // {
+        //     options.CustomSchemaIds(type => type.FullName);
+        //     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        //     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+        // });
 
         var app = builder.Build();
         // Configure the HTTP request pipeline.

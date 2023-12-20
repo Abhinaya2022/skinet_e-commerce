@@ -57,6 +57,11 @@ namespace API.Controllers
             );
         }
 
+        /// <summary>
+        /// Get Product with Id Param
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiErrorResponse), StatusCodes.Status404NotFound)]
