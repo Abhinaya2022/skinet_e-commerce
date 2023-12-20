@@ -15,7 +15,7 @@ public static class ApplicationServicesExtensions
     )
     {
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-        services.AddEndpointsApiExplorer();        
+        services.AddEndpointsApiExplorer();
         services.AddDbContext<StoreContext>(options =>
         {
             options.UseSqlite(config.GetConnectionString("DefaultConnection"));
@@ -25,10 +25,6 @@ public static class ApplicationServicesExtensions
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-        
-        
-        
-        
         ///<summary>
         /// To return a user specific error response for model validations
         ///</summary>
@@ -50,10 +46,17 @@ public static class ApplicationServicesExtensions
 
         services.AddCors(opt =>
         {
-            opt.AddPolicy("CorsPolicy", policy =>
-            {
-                policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4300");
-            });
+            opt.AddPolicy(
+                "CorsPolicy",
+                policy =>
+                {
+                    policy
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials()
+                        .WithOrigins("https://localhost:4200", "https://localhost:4300");
+                }
+            );
         });
 
         return services;
