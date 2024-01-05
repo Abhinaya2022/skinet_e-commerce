@@ -36,9 +36,9 @@ namespace API.Controllers
             [FromQuery] ProductSpecParams productParams
         )
         {
-            var spec = new ProductsWithTypesAndBrandsSpecification(productParams);
+            ProductsWithTypesAndBrandsSpecification spec = new(productParams);
 
-            var countSpec = new ProductWithFiltersForCountSpecification(productParams);
+            ProductWithFiltersForCountSpecification countSpec = new(productParams);
             var totalItems = await _productRepo.CountAsync(countSpec);
 
             var products = await this._productRepo.ListAsync(spec);
