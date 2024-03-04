@@ -11,7 +11,7 @@ export class BusyService {
   busy() {
     this.busyRequestCount++;
     this.spinnerService.show(undefined, {
-      type: 'timer',
+      type: 'line-scale-pulse-out',
     });
   }
 
