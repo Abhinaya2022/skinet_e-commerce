@@ -6,35 +6,41 @@ public static class SwaggerServiceExtensions
 {
     public static IServiceCollection AddSwaggerService(this IServiceCollection services)
     {
-        services.AddSwaggerGen(options =>
+        services.AddEndpointsApiExplorer();
+        services.AddSwaggerGen(option =>
         {
-            options.SwaggerDoc("v1", new OpenApiInfo { Title = "Open Source API", Version = "v1" });
-            options.AddSecurityRequirement(
-                new OpenApiSecurityRequirement
+            option.SwaggerDoc(
+                "v1",
+                new OpenApiInfo
                 {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Id = "Bearer", //The name of the previously defined security scheme.
-                                Type = ReferenceType.SecurityScheme
-                            }
-                        },
-                        new List<string>()
-                    }
+                    Description = "E-Commerce and .Net Identity API",
+                    Title = "Skinet API",
+                    Version = "v1",
                 }
             );
-            options.AddSecurityDefinition(
-                "Bearer",
-                new OpenApiSecurityScheme
+            var securityScheme = new OpenApiSecurityScheme
+            {
+                Description = "JWT Authorization header using the Bearer scheme.",
+                Name = "Authorisation",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.Http,
+                Scheme = "Bearer",
+                Reference = new OpenApiReference
                 {
-                    Description = "JWT Authorization header using the Bearer scheme.",
-                    Type = SecuritySchemeType.Http, //We set the scheme type to http since we're using bearer authentication
-                    Scheme = "bearer" //The name of the HTTP Authorization scheme to be used in the Authorization header. In this case "bearer".
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
                 }
-            );
-        });
+            };
+
+            option.AddSecurityDefinition("Bearer", securityScheme);
+
+            var securityRequirement = new OpenApiSecurityRequirement
+            {
+                { securityScheme, new[] { "Bearer" } }
+            };
+
+            option.AddSecurityRequirement(securityRequirement);
+        });       
 
         return services;
     }

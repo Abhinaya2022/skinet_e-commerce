@@ -27,9 +27,8 @@ internal class Program
 
         builder.Services.AddApplicationServices(builder.Configuration);
         builder.Services.AddIdentityServices(builder.Configuration);
-
         builder.Services.AddSwaggerService();
-        builder.Services.AddEndpointsApiExplorer();
+       
         // builder.Services.AddSwaggerGen(options =>
         // {
         //     options.CustomSchemaIds(type => type.FullName);
