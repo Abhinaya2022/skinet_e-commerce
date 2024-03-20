@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.OpenApi.Models;
 
 namespace API.Extensions;
@@ -7,9 +8,9 @@ public static class SwaggerServiceExtensions
     public static IServiceCollection AddSwaggerService(this IServiceCollection services)
     {
         services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen(option =>
+        services.AddSwaggerGen(options =>
         {
-            option.SwaggerDoc(
+            options.SwaggerDoc(
                 "v1",
                 new OpenApiInfo
                 {
@@ -32,15 +33,19 @@ public static class SwaggerServiceExtensions
                 }
             };
 
-            option.AddSecurityDefinition("Bearer", securityScheme);
+            options.AddSecurityDefinition("Bearer", securityScheme);
 
             var securityRequirement = new OpenApiSecurityRequirement
             {
                 { securityScheme, new[] { "Bearer" } }
             };
 
-            option.AddSecurityRequirement(securityRequirement);
-        });       
+            options.AddSecurityRequirement(securityRequirement);
+
+            options.CustomSchemaIds(type => type.FullName);
+            var xmlFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFileName));
+        });
 
         return services;
     }

@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
+/// <summary>
+/// Account Controller
+/// </summary>
 public class AccountController : BaseApiController
 {
     private readonly UserManager<AppUser> _userManager;
@@ -18,6 +21,13 @@ public class AccountController : BaseApiController
     private readonly ITokenService _tokenService;
     private readonly IMapper _mapper;
 
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="userManager"></param>
+    /// <param name="signInManager"></param>
+    /// <param name="token"></param>
+    /// <param name="mapper"></param>
     public AccountController(
         UserManager<AppUser> userManager,
         SignInManager<AppUser> signInManager,
@@ -31,6 +41,10 @@ public class AccountController : BaseApiController
         _mapper = mapper;
     }
 
+    /// <summary>
+    /// Get Current LoggedIn User
+    /// </summary>
+    /// <returns></returns>
     [Authorize]
     [HttpGet]
     public async Task<ActionResult<UserDto>> GetCurrentUser()
@@ -52,12 +66,21 @@ public class AccountController : BaseApiController
         };
     }
 
+    /// <summary>
+    /// CheckEmailExists already
+    /// </summary>
+    /// <param name="email"></param>
+    /// <returns></returns>
     [HttpGet("emailexists")]
     public async Task<ActionResult<bool>> CheckEmailExistsAsync([FromQuery] string email)
     {
         return await _userManager.FindByEmailAsync(email) != null;
     }
 
+    /// <summary>
+    /// Get User with address
+    /// </summary>
+    /// <returns></returns>
     [Authorize]
     [HttpGet("address")]
     public async Task<ActionResult<AddressDto>> GetUserAddress()
@@ -68,6 +91,11 @@ public class AccountController : BaseApiController
         return this._mapper.Map<Address, AddressDto>(user.Address);
     }
 
+    /// <summary>
+    /// Update LoggedIn user Address
+    /// </summary>
+    /// <param name="address"></param>
+    /// <returns></returns>
     [Authorize]
     [HttpPut("address")]
     public async Task<ActionResult<AddressDto>> UpdateUserAddress(AddressDto address)
@@ -84,6 +112,11 @@ public class AccountController : BaseApiController
         return BadRequest("Problem in user updation!");
     }
 
+    /// <summary>
+    /// Login User
+    /// </summary>
+    /// <param name="loginDto"></param>
+    /// <returns></returns>
     [HttpPost("login")]
     public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
     {
@@ -104,6 +137,11 @@ public class AccountController : BaseApiController
         };
     }
 
+    /// <summary>
+    /// Sign-Up User
+    /// </summary>
+    /// <param name="registerDto"></param>
+    /// <returns></returns>
     [HttpPost("register")]
     public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
     {
