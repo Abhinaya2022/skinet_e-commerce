@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { TestErrorComponent } from './core/test-error/test-error.component';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 import { ServerErrorComponent } from './core/server-error/server-error.component';
+import { authGuard } from './core/guars/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, data: { breadcrumb: 'Home' } },
@@ -12,17 +13,19 @@ const routes: Routes = [
   { path: 'server-error', component: ServerErrorComponent },
   {
     path: 'shop',
+    canActivate: [authGuard],
     loadChildren: () => import('./shop/shop.module').then((m) => m.ShopModule),
   },
   {
     path: 'account',
-    loadChildren: () => import('./account/account.module').then((m) => m.AccountModule),
+    loadChildren: () =>
+      import('./account/account.module').then((m) => m.AccountModule),
   },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
