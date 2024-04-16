@@ -22,7 +22,7 @@
     >
     <strong *ngIf="control?.errors?.['email']">Invalid email address</strong>
     <strong *ngIf="control?.errors?.['pattern']"
-      >Password not complex enough</strong
+      >{{ label }} not complex enough</strong
     >
     <strong *ngIf="control?.errors?.['emailExists']"
       >Email address is taken</strong

@@ -35,6 +35,7 @@ public class AccountsModule : ICarterModule
                 ITokenService token
             ) =>
             {
+               
                 var user = new AppUser
                 {
                     DisplayName = registerDto.DisplayName,

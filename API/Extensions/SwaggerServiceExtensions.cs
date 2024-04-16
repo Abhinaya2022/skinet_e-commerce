@@ -42,9 +42,9 @@ public static class SwaggerServiceExtensions
 
             options.AddSecurityRequirement(securityRequirement);
 
-            options.CustomSchemaIds(type => type.FullName);
-            var xmlFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFileName));
+            // options.CustomSchemaIds(type => type.FullName);
+            // var xmlFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            // options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFileName));
         });
 
         return services;
