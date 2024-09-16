@@ -12,8 +12,6 @@ export class AccountService {
   baseUrl = environment.apiUrl + 'Account/';
   private currentUserSource = new ReplaySubject<User | null>(1);
   currentUser$ = this.currentUserSource.asObservable();
-  private loggedInSource = new BehaviorSubject<boolean>(false);
-  loggedIn$ = this.loggedInSource.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {}
 

@@ -9,20 +9,12 @@ namespace API.EndPoints;
 
 public class AccountsModule : ICarterModule
 {
-    // private readonly UserManager<AppUser> _userManager;
-    // private readonly SignInManager<AppUser> _signInManager;
     // private readonly ITokenService _token;
 
-    // public AccountsModule(
-    //     UserManager<AppUser> userManager,
-    //     SignInManager<AppUser> signInManager,
-    //     ITokenService token = null
-    // )
+    // public AccountsModule(ITokenService token)
     // {
-    //     this._signInManager = signInManager;
-    //     this._userManager = userManager;
-    //     this._token = token;
-    // }
+    //     _token = token;
+    // }   
 
     public void AddRoutes(IEndpointRouteBuilder app)
     {
@@ -31,8 +23,7 @@ public class AccountsModule : ICarterModule
             async (
                 RegisterDto registerDto,
                 UserManager<AppUser> userManager,
-                SignInManager<AppUser> signInManager,
-                ITokenService token
+                SignInManager<AppUser> signInManager
             ) =>
             {
                
@@ -52,7 +43,7 @@ public class AccountsModule : ICarterModule
                     new UserDto
                     {
                         DisplayName = user.DisplayName,
-                        Token = token.CreateToken(user),
+                        //Token = _token.CreateToken(user),
                         Email = user.Email
                     }
                 );
